@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>조각 - 시 쓰기</title>
+    <meta name="description" content="당신의 감성을 글로 남겨보세요.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Black+And+White+Picture&family=Do+Hyeon&family=Dongle&family=East+Sea+Dokdo&family=Gaegu&family=Gamja+Flower&family=Gowun+Batang&family=Gowun+Dodum&family=Hahmlet&family=Jua&family=Nanum+Myeongjo:wght@400;700;800&family=Nanum+Pen+Script&family=Noto+Sans+KR&family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&family=Poor+Story&family=Single+Day&family=Song+Myung&family=Sunflower:wght@300&family=Yeon+Sung&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body>
+    <div class="background-container">
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+        <div class="gradient-overlay"></div>
+    </div>
+
+    <main class="app-container">
+        <header class="app-header">
+            <h1>조각</h1>
+            <p>당신의 고요한 시간을 텍스트로 남기세요</p>
+        </header>
+
+        <section class="editor-section active" id="editorSection">
+            <div class="editor-glass">
+                <input type="text" id="poemTitle" class="input-title" placeholder="시의 제목을 적어주세요" autocomplete="off">
+
+                <div class="divider"></div>
+
+                <textarea id="poemContent" class="input-content" placeholder="당신의 마음을 이곳에 흘려보내세요..."></textarea>
+
+
+
+                <div class="editor-footer">
+                    <input type="text" id="poemAuthor" class="input-author" placeholder="지은이" autocomplete="off">
+                    <button id="saveBtn" class="action-btn">시 기록하기</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="view-section" id="viewSection">
+
+
+            <div class="view-glass">
+                <h2 id="viewTitle" class="view-title">제목</h2>
+                <div class="view-divider"></div>
+                <div id="viewContent" class="view-content">내용</div>
+                <div id="viewAuthor" class="view-author">지은이</div>
+
+                <div class="view-footer">
+                    <button id="fontChangeBtn" class="action-btn">스타일 설정</button>
+                    <button id="downloadBtn" class="action-btn">이미지로 저장</button>
+                    <button id="backBtn" class="action-btn outline-btn">다시 쓰기</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Alert Modal -->
+    <div class="modal-overlay" id="alertModal">
+        <div class="modal-content">
+            <p id="alertMessage">알림 메시지</p>
+            <button class="action-btn" id="alertCloseBtn">확인</button>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="fontModal">
+        <div class="modal-content font-modal-content">
+            <h3>스타일 설정</h3>
+            
+            <div class="setting-group">
+                <label>
+                    <span>글꼴 선택</span>
+                </label>
+                <div class="font-list" id="fontList">
+                    <button class="font-btn active" data-font="'Noto Serif KR', serif" style="font-family: 'Noto Serif KR', serif;">본명조</button>
+                    <button class="font-btn" data-font="'Nanum Myeongjo', serif" style="font-family: 'Nanum Myeongjo', serif;">나눔명조</button>
+                    <button class="font-btn" data-font="'ChosunGungseo', serif" style="font-family: 'ChosunGungseo', serif;">조선궁서체</button>
+                    <button class="font-btn" data-font="'Gowun Batang', serif" style="font-family: 'Gowun Batang', serif;">고운바탕</button>
+                    <button class="font-btn" data-font="'Gowun Dodum', sans-serif" style="font-family: 'Gowun Dodum', sans-serif;">고운돋움</button>
+                    <button class="font-btn" data-font="'Noto Sans KR', sans-serif" style="font-family: 'Noto Sans KR', sans-serif;">본고딕</button>
+                    <button class="font-btn" data-font="'Hahmlet', serif" style="font-family: 'Hahmlet', serif;">함초롬</button>
+                    <button class="font-btn" data-font="'Nanum Pen Script', cursive" style="font-family: 'Nanum Pen Script', cursive; font-size: 1.2rem;">나눔펜</button>
+                    <button class="font-btn" data-font="'Jua', sans-serif" style="font-family: 'Jua', sans-serif;">주아</button>
+                    <button class="font-btn" data-font="'Do Hyeon', sans-serif" style="font-family: 'Do Hyeon', sans-serif;">도현</button>
+                    <button class="font-btn" data-font="'Song Myung', serif" style="font-family: 'Song Myung', serif;">송명</button>
+                    <button class="font-btn" data-font="'Gamja Flower', cursive" style="font-family: 'Gamja Flower', cursive;">감자꽃</button>
+                    <button class="font-btn" data-font="'Yeon Sung', cursive" style="font-family: 'Yeon Sung', cursive;">연성</button>
+                    <button class="font-btn" data-font="'Poor Story', cursive" style="font-family: 'Poor Story', cursive;">푸어스토리</button>
+                    <button class="font-btn" data-font="'East Sea Dokdo', cursive" style="font-family: 'East Sea Dokdo', cursive; font-size: 1.4rem;">독도</button>
+                    <button class="font-btn" data-font="'Black And White Picture', sans-serif" style="font-family: 'Black And White Picture', sans-serif;">흑백사진</button>
+                    <button class="font-btn" data-font="'Dongle', sans-serif" style="font-family: 'Dongle', sans-serif; font-size: 1.4rem;">동글</button>
+                    <button class="font-btn" data-font="'Gaegu', cursive" style="font-family: 'Gaegu', cursive;">개구</button>
+                    <button class="font-btn" data-font="'Single Day', cursive" style="font-family: 'Single Day', cursive;">싱글데이</button>
+                    <button class="font-btn" data-font="'Sunflower', sans-serif" style="font-family: 'Sunflower', sans-serif;">해바라기</button>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <label for="titleSizeSlider"><span>제목 크기</span> <span id="titleSizeValue">2.0rem</span></label>
+                <input type="range" id="titleSizeSlider" min="1.0" max="4.0" step="0.1" value="2.0">
+            </div>
+
+            <div class="setting-group">
+                <label for="bodySizeSlider"><span>본문 크기</span> <span id="bodySizeValue">1.2rem</span></label>
+                <input type="range" id="bodySizeSlider" min="0.8" max="2.5" step="0.1" value="1.2">
+            </div>
+
+            <div class="setting-group">
+                <label for="fontWeightSlider"><span>글씨 굵기</span> <span id="fontWeightValue">300</span></label>
+                <input type="range" id="fontWeightSlider" min="100" max="900" step="100" value="300">
+            </div>
+
+            <div class="setting-group">
+                <label for="colorPicker"><span>글씨 색상</span></label>
+                <input type="color" id="colorPicker" value="#f0f0f0">
+            </div>
+
+            <div class="setting-group">
+                <label for="bgColorPicker"><span>배경 색상</span></label>
+                <input type="color" id="bgColorPicker" value="#0a0b10">
+            </div>
+
+            <button class="action-btn outline-btn" id="fontCloseBtn" style="margin-top: 1.5rem;">닫기</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -88,11 +88,31 @@ body {
     animation: fadeInDown 1.5s ease-out;
 }
 
+.title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 0.5rem;
+}
+
+.site-logo {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.4));
+    animation: gentleFloat 4s ease-in-out infinite;
+}
+
+@keyframes gentleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
 .app-header h1 {
     font-size: 2.5rem;
     font-weight: 300;
     letter-spacing: 0.2em;
-    margin-bottom: 0.5rem;
     color: #ffffff;
     text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }

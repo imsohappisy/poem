@@ -7,11 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const titleInput = document.getElementById('poemTitle');
     const contentInput = document.getElementById('poemContent');
     const authorInput = document.getElementById('poemAuthor');
+    const dateInput = document.getElementById('poemDate');
     
     // View Elements
     const viewTitle = document.getElementById('viewTitle');
     const viewContent = document.getElementById('viewContent');
     const viewAuthor = document.getElementById('viewAuthor');
+    const viewDate = document.getElementById('viewDate');
     
     // Buttons & Elements
     const saveBtn = document.getElementById('saveBtn');
@@ -40,6 +42,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const colorPicker = document.getElementById('colorPicker');
     const bgColorPicker = document.getElementById('bgColorPicker');
+    
+    // Init Date
+    if (dateInput) {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        dateInput.value = `${yyyy}-${mm}-${dd}`;
+    }
     
     // Custom Alert Function
     function showAlert(msg) {
@@ -139,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const title = titleInput.value.trim();
         const content = contentInput.value.trim();
         const author = authorInput.value.trim();
+        const date = dateInput ? dateInput.value : '';
         
         if (!content) {
             showAlert('시의 내용을 적어주세요.');
@@ -150,6 +162,20 @@ document.addEventListener('DOMContentLoaded', () => {
         viewTitle.textContent = title || '무제';
         viewContent.textContent = content;
         viewAuthor.textContent = author ? `- ${author}` : '- 작자 미상';
+        
+        if (viewDate) {
+            if (date) {
+                const dateParts = date.split('-');
+                if (dateParts.length === 3) {
+                    viewDate.textContent = `${dateParts[0]}. ${dateParts[1]}. ${dateParts[2]}.`;
+                } else {
+                    viewDate.textContent = date;
+                }
+                viewDate.style.display = 'block';
+            } else {
+                viewDate.style.display = 'none';
+            }
+        }
         
         // Transition Sections
         editorSection.classList.remove('active');
